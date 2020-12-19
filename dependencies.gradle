@@ -1,0 +1,77 @@
+apply from: "$rootDir/versions.gradle"
+
+ext.deps = [:]
+
+def deps = [:]
+
+//region AndroidX
+def androidx = [:]
+androidx.annotations = "androidx.annotation:annotation:$versions.androidx"
+androidx.fragment_ktx = "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+androidx.app_compat = "androidx.appcompat:appcompat:$versions.androidx"
+androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
+androidx.cardview = "androidx.cardview:cardview:$versions.cardview"
+androidx.recyclerview = "androidx.recyclerview:recyclerview:$versions.recyclerview"
+androidx.legacy_support = "androidx.legacy:legacy-support-v4:$versions.legacy_support"
+androidx.materialdesign = "com.google.android.material:material:$versions.materialdesign"
+androidx.swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:$versions.swiperefreshlayout"
+androidx.constraintlayout = "androidx.constraintlayout:constraintlayout:$versions.constraintlayout"
+deps.androidx = androidx
+
+//endregion
+
+//region Kotlin
+def kotlin = [:]
+kotlin.plugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+kotlin.stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin"
+deps.kotlin = kotlin
+
+//endregion
+
+//region Lifecycle
+def lifecycle = [:]
+lifecycle.extensions = "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+deps.lifecycle = lifecycle
+
+//endregion
+
+//region Navigation
+def navigation = [:]
+navigation.fragment_ktx = "androidx.navigation:navigation-fragment-ktx:$versions.nav_version"
+navigation.navigation_ui = "androidx.navigation:navigation-ui-ktx:$versions.nav_version"
+navigation.dynamic_features = "androidx.navigation:navigation-dynamic-features-fragment:$versions.nav_version" // Feature module Support
+navigation.testing = "androidx.navigation:navigation-testing:$versions.nav_version" // Testing Navigation
+navigation.safe_args = "androidx.navigation:navigation-safe-args-gradle-plugin:$versions.nav_version" // Safe Args
+deps.navigation = navigation
+
+//endregion
+
+//region Retrofit
+def retrofit = [:]
+retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
+retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+deps.retrofit = retrofit
+
+//enregion
+
+//---------- Testing ------------------//
+
+//region Espresso
+def espresso = [:]
+espresso.core = "androidx.test.espresso:espresso-core:$versions.espresso"
+deps.espresso = espresso
+
+//endregion
+
+//region JUnit
+def junit = [:]
+junit.junit = "junit:junit:$versions.junit"
+junit.extensions = "androidx.test.ext:junit:$versions.junit_test_extensions"
+deps.junit = junit
+
+//endregion
+
+deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
+deps.timber = "com.jakewharton.timber:timber:$versions.timber"
+
+ext.deps = deps

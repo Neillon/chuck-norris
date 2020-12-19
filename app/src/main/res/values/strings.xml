@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">chuck-norris</string>
+
+    <string name="search">Pesquisar</string>
+    <string name="categories">Categorias</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorites">Favoritas</string>
+    <string name="jokes">Piadas</string>
+    <string name="title_categories">Categorias</string>
+    <string name="title_favorites">Favoritas</string>
+    <string name="title_jokes">Piadas</string>
+</resources>

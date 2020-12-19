@@ -1,0 +1,8 @@
+include ':libraries:customview'
+include ':libraries:database'
+include ':libraries:network'
+include ':features:jokes'
+include ':features:favorites'
+include ':features:categories'
+include ':app'
+rootProject.name = "chuck-norris"

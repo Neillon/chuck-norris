@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.dynamic-feature'
+    id 'kotlin-android'
+}
+android {
+    compileSdkVersion build_versions.build_sdk
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.example.chuck_norris.favorites"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    viewBinding {
+        enabled true
+    }
+}
+
+dependencies {
+    api project(":app")
+
+    // Kotlin
+    implementation deps.kotlin.stdlib
+
+    // AndroidX
+    implementation deps.androidx.core_ktx
+    implementation deps.androidx.fragment_ktx
+    implementation deps.androidx.app_compat
+    implementation deps.androidx.materialdesign
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.cardview
+    implementation deps.androidx.swiperefreshlayout
+    implementation deps.androidx.legacy_support
+
+    // Lifecycle
+    implementation deps.lifecycle.extensions
+
+    // Timber
+    implementation deps.timber
+
+    // Test implementations
+    testImplementation  deps.junit.junit
+    androidTestImplementation deps.junit.extensions
+    androidTestImplementation deps.espresso.core
+    androidTestImplementation deps.androidx.annotations
+}
