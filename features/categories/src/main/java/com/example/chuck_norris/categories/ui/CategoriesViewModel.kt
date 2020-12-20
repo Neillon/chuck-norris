@@ -4,16 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.chuck_norris.abstractions.UseCase
+import com.example.chuck_norris.categories.data.mappers.toUI
 import com.example.chuck_norris.categories.data.usecase.GetCategoriesUseCase
 import com.example.chuck_norris.categories.domain.Category
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
 import com.example.chuck_norris.categories.ui.data.CategoriesViewState
+import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.network.abstractions.Either
-import com.example.chuck_norris.network.error_handling.NetworkError
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -60,33 +59,26 @@ class CategoriesViewModel(
             val result = getCategoriesUseCase.execute(GetCategoriesUseCase.Params())
 
             resultToViewState(result)
-
         }
     }
 
     /**
      * Transform the result into a valuable ViewState
      */
-    private suspend fun resultToViewState(result: Either<List<Category>, NetworkError>) {
+    private suspend fun resultToViewState(result: Either<List<Category>, Exception>) {
         when (result) {
-            is Either.Left -> {
+            is Either.Value -> {
                 withContext(Dispatchers.Main) {
-                    _viewState.value = _viewState.value!!.copy(
-                        isLoading = false,
-                        categories = result.packet
-                    )
+                    _viewState.value = _viewState.value!!.copy(isLoading = false, categories = result.packet.toUI())
                 }
 
             }
-            is Either.Right -> {
+            is Either.Error -> {
                 withContext(Dispatchers.Main) {
-                    _viewEffect.value = CategoriesViewEffect.ShowError(result.packet.message)
+                    _viewEffect.value = CategoriesViewEffect.ShowError(result.packet.message!!)
                 }
             }
         }.exhaustive
     }
 
 }
-
-inline val <T> T.exhaustive
-    get() = this

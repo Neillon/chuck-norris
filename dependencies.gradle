@@ -50,6 +50,7 @@ deps.navigation = navigation
 def retrofit = [:]
 retrofit.runtime = "com.squareup.retrofit2:retrofit:$versions.retrofit"
 retrofit.gson = "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+retrofit.okhttp = "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
 deps.retrofit = retrofit
 
 //enregion

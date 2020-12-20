@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chuck_norris.categories.R
 import com.example.chuck_norris.categories.databinding.ItemCategoryBinding
-import com.example.chuck_norris.categories.ui.data.CategoryUI
+import com.example.chuck_norris.ui.CategoryUI
 import timber.log.Timber
 
 class CategoriesDiffCallback : DiffUtil.ItemCallback<CategoryUI>() {
@@ -43,6 +43,14 @@ class CategoriesAdapter :
      */
     fun insertData(values: List<CategoryUI>) {
         categories.addAll(values)
+        notifyDataSetChanged()
+    }
+
+    /**
+     * Remove all data from adapter
+     */
+    fun clearData() {
+        categories.clear()
         notifyDataSetChanged()
     }
 

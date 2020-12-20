@@ -9,7 +9,11 @@
         android:id="@+id/categoriesFragment"
         android:name="com.example.chuck_norris.categories.ui.CategoriesFragment"
         android:label="@string/categories"
-        tools:layout="@layout/fragment_categories" />
+        tools:layout="@layout/fragment_categories" >
+        <action
+            android:id="@+id/action_categoriesFragment_to_jokeDetailFragment"
+            app:destination="@id/jokeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.chuck_norris.favorites.FavoritesFragment"
@@ -19,4 +23,14 @@
         android:id="@+id/jokesFragment"
         android:name="com.example.chuck_norris.jokes.ui.search.JokesFragment"
         android:label="@string/jokes" />
+    <fragment
+        android:id="@+id/jokeDetailFragment"
+        android:name="com.example.chuck_norris.jokes.ui.detail.JokeDetailFragment"
+        app:moduleName="chuck-norris.features.jokes"
+        android:label="fragment_joke_detail"
+        tools:layout="@layout/fragment_joke_detail" >
+        <argument
+            android:name="joke"
+            app:argType="com.example.chuck_norris.domain.entities.Joke" />
+    </fragment>
 </navigation>

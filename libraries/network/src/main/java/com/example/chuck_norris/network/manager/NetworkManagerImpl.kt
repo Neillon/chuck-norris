@@ -33,8 +33,8 @@ class NetworkManagerImpl(
             val response = block()
             response.takeIf { it.isSuccessful }?.body()
                 ?: when (response.code()) {
-                    Constants.Network.BAD_REQUEST -> throw BadRequestException(context)
-                    Constants.Network.INTERNAL_SERVER_ERROR -> throw InternalServerErrorException(context)
+                    Constants.Network.Exceptions.BAD_REQUEST -> throw BadRequestException(context)
+                    Constants.Network.Exceptions.INTERNAL_SERVER_ERROR -> throw InternalServerErrorException(context)
                     else -> throw GenericNetworkException(context.getString(R.string.not_especified_error))
                 }
 

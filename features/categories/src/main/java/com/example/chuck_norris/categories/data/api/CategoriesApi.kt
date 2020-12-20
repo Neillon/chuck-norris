@@ -11,15 +11,15 @@ interface CategoriesApi {
      * Retrieve the categories
      * [url] https://api.chucknorris.io/jokes/categories
      */
-    @GET("/categories")
-    fun getCategories(): Response<List<String>>
+    @GET("/jokes/categories")
+    suspend fun getCategories(): Response<List<String>>
 
     /**
      * Retrieve a random joke by category
      * [url] https://api.chucknorris.io/jokes/random?category={category}
      */
     @GET("/random")
-    fun getRandomJokeByCategory(
+    suspend fun getRandomJokeByCategory(
         @Query("category") category: String
     ): Response<JokeResponse>
 }

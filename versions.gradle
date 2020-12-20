@@ -21,7 +21,8 @@ versions.materialdesign = "1.2.0"
 versions.recyclerview = "1.1.0"
 versions.cardview = "1.0.0"
 versions.lifecycle = "2.2.0"
-versions.retrofit = "2.9.0"
+versions.retrofit = "2.7.1"
+versions.okhttp = "4.3.1"
 
 versions.nav_version = "2.3.2"
 

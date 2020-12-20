@@ -10,4 +10,8 @@
     <string name="title_categories">Categorias</string>
     <string name="title_favorites">Favoritas</string>
     <string name="title_jokes">Piadas</string>
+    <string name="cancel">Cancelar</string>
+    <string name="all_good">Ok</string>
+    <string name="internet_request_explanation">Essa permissão é muito importante para o uso da aplicação. Para que possamos carregar os dados das piadas, devemos usar a internet. Poderia aceitar?</string>
+    <string name="necessary_internet_permission">Necessária permissão de acesso à internet</string>
 </resources>

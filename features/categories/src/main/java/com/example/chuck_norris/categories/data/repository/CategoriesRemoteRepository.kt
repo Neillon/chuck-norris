@@ -4,29 +4,25 @@ import com.example.chuck_norris.categories.data.api.CategoriesApi
 import com.example.chuck_norris.categories.data.mappers.toCategoryList
 import com.example.chuck_norris.categories.domain.Category
 import com.example.chuck_norris.network.abstractions.Either
-import com.example.chuck_norris.network.error_handling.NetworkError
-import com.example.chuck_norris.network.error_handling.NetworkErrorFactory
 import com.example.chuck_norris.network.exception.BaseNetworkException
 import com.example.chuck_norris.network.exception.GenericNetworkException
 import com.example.chuck_norris.network.manager.NetworkManager
 
 class CategoriesRemoteRepository(
     private val categoriesApi: CategoriesApi,
-    private val networkManagerImpl: NetworkManager
+    private val networkManager: NetworkManager
 ) : CategoriesRepository {
 
-    override suspend fun getCategories(): Either<List<Category>, NetworkError> = try {
-        val data = networkManagerImpl.doAsyncRequest {
+    override suspend fun getCategories(): Either<List<Category>, BaseNetworkException> = try {
+        val data = networkManager.doAsyncRequest {
             categoriesApi.getCategories()
         }.toCategoryList()
 
-        Either.left(data)
+        Either.value(data)
     } catch (exception: BaseNetworkException) {
-        Either.right(NetworkErrorFactory.create(exception))
+        Either.error(exception)
     } catch (exception: Exception) {
-        Either.right(NetworkErrorFactory.create(
-            exception = GenericNetworkException(exception.message ?: "")
-        ))
+        Either.error(GenericNetworkException(exception.message ?: ""))
     }
 
 }

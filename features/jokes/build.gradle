@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.dynamic-feature'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 android {
     compileSdkVersion build_versions.build_sdk
@@ -56,6 +57,12 @@ dependencies {
 
     // Lifecycle
     implementation deps.lifecycle.extensions
+
+    // Navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.navigation_ui
+    implementation deps.navigation.dynamic_features
+    implementation deps.navigation.fragment_ktx
 
     // Timber
     implementation deps.timber

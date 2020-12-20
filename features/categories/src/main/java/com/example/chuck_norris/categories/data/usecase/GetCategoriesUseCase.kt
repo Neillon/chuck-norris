@@ -8,10 +8,10 @@ import com.example.chuck_norris.network.error_handling.NetworkError
 
 class GetCategoriesUseCase(
     private val repository: CategoriesRepository
-): UseCase<Either<List<Category>, NetworkError>, GetCategoriesUseCase.Params> {
+): UseCase<Either<List<Category>, Exception>, GetCategoriesUseCase.Params> {
     class Params()
 
-    override suspend fun execute(params: Params): Either<List<Category>, NetworkError> {
+    override suspend fun execute(params: Params): Either<List<Category>, Exception> {
         return repository.getCategories()
     }
 }

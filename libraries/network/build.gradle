@@ -18,7 +18,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', "BASE_URL", "\"https://api.chucknorris.io/jokes/categories/jokes/\""
+        }
         release {
+            buildConfigField 'String', "BASE_URL", "\"https://api.chucknorris.io/jokes/categories/jokes/\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -41,6 +45,7 @@ dependencies {
     // Retrofit
     implementation deps.retrofit.gson
     implementation deps.retrofit.runtime
+    implementation deps.retrofit.okhttp
 
     // Timber
     implementation deps.timber

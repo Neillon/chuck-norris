@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.navArgs
 import com.example.chuck_norris.jokes.R
 import com.example.chuck_norris.jokes.databinding.FragmentJokeDetailBinding
 
 class JokeDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentJokeDetailBinding
+    private val arguments: JokeDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

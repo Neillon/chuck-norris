@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs.kotlin"
 }
 
@@ -24,11 +25,7 @@ android {
     }
 
     buildTypes {
-        debug {
-            buildConfigField 'String', "BASE_URL", '"https://api.chucknorris.io/jokes/categories/jokes/"'
-        }
         release {
-            buildConfigField 'String', "BASE_URL", '"https://api.chucknorris.io/jokes/categories/jokes/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

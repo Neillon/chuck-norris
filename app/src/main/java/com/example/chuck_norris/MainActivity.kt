@@ -1,13 +1,20 @@
 package com.example.chuck_norris
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.chuck_norris.databinding.ActivityMainBinding
+import com.example.chuck_norris.network.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,3 +58,4 @@ class MainActivity : AppCompatActivity() {
         navController.setGraph(R.navigation.main_graph)
     }
 }
+
