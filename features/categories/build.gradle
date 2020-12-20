@@ -60,6 +60,10 @@ dependencies {
     // Timber
     implementation deps.timber
 
+    // Retrofit
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.runtime
+
     // Test implementations
     testImplementation  deps.junit.junit
     androidTestImplementation deps.junit.extensions

@@ -10,22 +10,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.chuck_norris.categories.R
 import com.example.chuck_norris.categories.databinding.ItemCategoryBinding
-import com.example.chuck_norris.model.Category
+import com.example.chuck_norris.categories.ui.data.CategoryUI
 import timber.log.Timber
 
-class CategoriesDiffCallback : DiffUtil.ItemCallback<Category>() {
-    override fun areItemsTheSame(oldItem: Category, newItem: Category) =
+class CategoriesDiffCallback : DiffUtil.ItemCallback<CategoryUI>() {
+    override fun areItemsTheSame(oldItem: CategoryUI, newItem: CategoryUI) =
         oldItem.name == newItem.name
 
-    override fun areContentsTheSame(oldItem: Category, newItem: Category) =
+    override fun areContentsTheSame(oldItem: CategoryUI, newItem: CategoryUI) =
         oldItem.name == newItem.name
 }
 
 class CategoriesAdapter :
-    ListAdapter<Category, CategoriesAdapter.CategoriesViewHolder>(CategoriesDiffCallback()) {
+    ListAdapter<CategoryUI, CategoriesAdapter.CategoriesViewHolder>(CategoriesDiffCallback()) {
 
     private lateinit var binding: ItemCategoryBinding
-    private var categories = mutableListOf<Category>()
+    private var categories = mutableListOf<CategoryUI>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         binding = ItemCategoryBinding.inflate(LayoutInflater.from(parent.context))
@@ -41,7 +41,7 @@ class CategoriesAdapter :
     /**
      * Set data into the categories adapter list
      */
-    fun insertData(values: List<Category>) {
+    fun insertData(values: List<CategoryUI>) {
         categories.addAll(values)
         notifyDataSetChanged()
     }
@@ -56,7 +56,7 @@ class CategoriesAdapter :
         /**
          * bind the data into the ViewHolder/List
          */
-        fun bind(category: Category) {
+        fun bind(category: CategoryUI) {
             textViewName.text = category.name
             imageButtonShowDetails.setOnClickListener { Timber.d("All good!") }
         }

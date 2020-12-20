@@ -29,6 +29,7 @@ versions.espresso = "3.3.0"
 versions.junit = "4.12"
 versions.junit_test_extensions = "1.1.2"
 versions.timber = "4.7.1"
+versions.koin = "2.2.0"
 
 ext.versions = versions
 

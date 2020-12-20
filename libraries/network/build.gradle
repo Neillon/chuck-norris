@@ -45,6 +45,11 @@ dependencies {
     // Timber
     implementation deps.timber
 
+    // Koin
+    implementation deps.koin.android
+    implementation deps.koin.androidx_scope
+    implementation deps.koin.andoidx_viewmodel
+
     testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions
     androidTestImplementation deps.espresso.core

@@ -4,17 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chuck_norris.abstractions.UseCase
+import com.example.chuck_norris.categories.data.usecase.GetCategoriesUseCase
+import com.example.chuck_norris.categories.domain.Category
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
 import com.example.chuck_norris.categories.ui.data.CategoriesViewState
-import com.example.chuck_norris.model.Category
+import com.example.chuck_norris.network.abstractions.Either
+import com.example.chuck_norris.network.error_handling.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-class CategoriesViewModel : ViewModel() {
+class CategoriesViewModel(
+    private val getCategoriesUseCase: GetCategoriesUseCase
+) : ViewModel() {
 
     private val _viewState = MutableLiveData<CategoriesViewState>()
     val viewState: LiveData<CategoriesViewState>
@@ -51,28 +57,33 @@ class CategoriesViewModel : ViewModel() {
         _viewState.value = _viewState.value!!.copy(isLoading = true)
 
         viewModelScope.launch(Dispatchers.IO) {
-            delay(5000L)
+            val result = getCategoriesUseCase.execute(GetCategoriesUseCase.Params())
 
-            withContext(Dispatchers.Main) {
-                _viewState.value = _viewState.value!!.copy(
-                    isLoading = false,
-                    categories = listOf(
-                        Category("One"),
-                        Category("Two"),
-                        Category("Three"),
-                        Category("Four"),
-                        Category("Five"),
-                        Category("Six"),
-                        Category("Seven"),
-                    )
-                )
-            }
+            resultToViewState(result)
 
-            delay(3000L)
-            withContext(Dispatchers.Main) {
-                _viewEffect.value = CategoriesViewEffect.ShowError("No internet connection")
-            }
         }
+    }
+
+    /**
+     * Transform the result into a valuable ViewState
+     */
+    private suspend fun resultToViewState(result: Either<List<Category>, NetworkError>) {
+        when (result) {
+            is Either.Left -> {
+                withContext(Dispatchers.Main) {
+                    _viewState.value = _viewState.value!!.copy(
+                        isLoading = false,
+                        categories = result.packet
+                    )
+                }
+
+            }
+            is Either.Right -> {
+                withContext(Dispatchers.Main) {
+                    _viewEffect.value = CategoriesViewEffect.ShowError(result.packet.message)
+                }
+            }
+        }.exhaustive
     }
 
 }

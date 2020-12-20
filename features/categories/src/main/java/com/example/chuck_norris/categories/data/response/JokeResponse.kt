@@ -1,9 +1,9 @@
-package com.example.chuck_norris.network.schemas
+package com.example.chuck_norris.categories.data.response
 
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 
-data class JokeSchema(
+data class JokeResponse(
     @SerializedName("id") val id: String,
     @SerializedName("icon_url") val iconUrl: String,
     @SerializedName("url") val url: String,
@@ -12,4 +12,3 @@ data class JokeSchema(
     @SerializedName("created_at") val createdAt: LocalDate,
     @SerializedName("updated_at") val updatedAt: LocalDate
 )
-

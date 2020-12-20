@@ -79,6 +79,9 @@ dependencies {
     // Timber
     implementation deps.timber
 
+    // Koin
+    implementation deps.koin.android
+
     // Test
     testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions
