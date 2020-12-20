@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chuck_norris.categories.R
 import com.example.chuck_norris.categories.databinding.FragmentCategoriesBinding
 import com.example.chuck_norris.categories.ui.adapter.CategoriesAdapter
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
@@ -29,6 +32,7 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViews()
+        observeViewState()
 
         viewModel.processEvent(CategoriesViewEvent.LoadCategories)
     }
@@ -57,6 +61,18 @@ class CategoriesFragment : Fragment() {
     private fun setupRecyclerViewCategories() {
         binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
         binding.recyclerViewCategories.adapter = categoriesAdapter
+    }
+
+
+    /**
+     * Setup ViewState Observer
+     */
+    private fun observeViewState() {
+        viewModel.currentViewState.observe(viewLifecycleOwner, Observer { viewState ->
+            categoriesAdapter.insertData(viewState.categories!!)
+            binding.bottomInformationViewCategories.isVisible = viewState.isLoading
+        })
+
     }
 
 }

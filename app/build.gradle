@@ -52,6 +52,7 @@ android {
 dependencies {
 
     api project(":libraries:customview")
+    api project(":libraries:network")
 
     // Kotlin
     implementation deps.kotlin.stdlib
@@ -64,6 +65,7 @@ dependencies {
     implementation deps.androidx.recyclerview
     implementation deps.androidx.cardview
     implementation deps.androidx.swiperefreshlayout
+    implementation deps.androidx.legacy_support
 
     // Lifecycle
     implementation deps.lifecycle.extensions
@@ -76,11 +78,6 @@ dependencies {
 
     // Timber
     implementation deps.timber
-
-    // Retrofit
-    implementation deps.retrofit.gson
-    implementation deps.retrofit.runtime
-    implementation deps.androidx.legacy_support
 
     // Test
     testImplementation deps.junit.junit

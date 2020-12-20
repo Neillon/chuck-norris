@@ -4,5 +4,12 @@
     <declare-styleable name="TopTitle">
         <attr name="title_text" format="string" />
     </declare-styleable>
+    
+    <declare-styleable name="BottomInformationView">
+        <attr name="information_background_color" format="reference" />
+        <attr name="information_text_color" format="reference" />
+        <attr name="information" format="string" />
+        <attr name="isLoading_Information" format="boolean" />
+    </declare-styleable>
 
 </resources>

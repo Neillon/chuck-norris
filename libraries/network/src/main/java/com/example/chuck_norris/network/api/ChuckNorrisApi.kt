@@ -1,4 +1,4 @@
-package com.example.chuck_norris.data.api
+package com.example.chuck_norris.network.api
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -20,6 +20,14 @@ interface ChuckNorrisApi {
     @GET("/random")
     fun getRandomJokeByCategory(
         @Query("category") category: String
+    )
+
+    /**
+     * Retrieve jokes by query
+     */
+    @GET("/search")
+    fun seachJoke(
+        @Query("query") query: String
     )
 
 }

@@ -38,6 +38,13 @@ dependencies {
     implementation deps.androidx.core_ktx
     implementation deps.androidx.app_compat
 
+    // Retrofit
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.runtime
+
+    // Timber
+    implementation deps.timber
+
     testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions
     androidTestImplementation deps.espresso.core
