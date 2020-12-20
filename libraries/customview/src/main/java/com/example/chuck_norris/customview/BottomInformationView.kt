@@ -97,12 +97,12 @@ class BottomInformationView(
      * Make the view look like an error view
      */
     fun makeError(message: String) {
-        informationBackgroundColor = R.attr.colorError
-        textColor = R.attr.colorOnError
+        informationBackgroundColor = Color.parseColor("#911414")
+        textColor = Color.WHITE
         isLoading = false
         information = message
         isVisible = true
-        
+
         background = ColorDrawable(informationBackgroundColor)
         textViewBottomInformation.text = information
         progressBarBottomInformation.isVisible = isLoading
