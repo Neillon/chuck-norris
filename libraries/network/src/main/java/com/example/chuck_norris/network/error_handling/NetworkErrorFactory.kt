@@ -1,9 +1,11 @@
 package com.example.chuck_norris.network.error_handling
 
+import com.example.chuck_norris.network.exception.BaseNetworkException
+
 object NetworkErrorFactory {
-    fun create(statusCode: Int, exception: Throwable): NetworkError = NetworkError(
-        exception.localizedMessage,
-        statusCode,
-        exception
+    fun create(exceptionBase: BaseNetworkException): NetworkError = NetworkError(
+        exceptionBase.message ?: "",
+        exceptionBase.statusCode,
+        exceptionBase
     )
 }

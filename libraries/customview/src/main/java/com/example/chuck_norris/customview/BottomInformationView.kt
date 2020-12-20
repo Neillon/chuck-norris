@@ -97,6 +97,7 @@ class BottomInformationView(
      * Make the view look like an error view
      */
     fun makeError(message: String) {
+        // TODO("Get color from R.attr.colorError")
         informationBackgroundColor = Color.parseColor("#911414")
         textColor = Color.WHITE
         isLoading = false

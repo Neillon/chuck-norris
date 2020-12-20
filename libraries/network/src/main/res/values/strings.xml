@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="no_internet_connection">Sem conexão com a internet</string>
+    <string name="bad_request_exception_message">Nã foi possível encontrar o recurso especificado</string>
+    <string name="not_especified_error">Erro não especificado</string>
+    <string name="internal_server_error">Erro interno no servidor. Tente mais tarde</string>
 </resources>
