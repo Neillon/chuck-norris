@@ -13,4 +13,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_gray">#202020</color>
+
+    <color name="red_700">#911414</color>
+    <color name="red_200">#A62C2C</color>
 </resources>

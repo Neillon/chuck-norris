@@ -16,16 +16,16 @@ import timber.log.Timber
 
 class CategoriesViewModel : ViewModel() {
 
-    private val _currentViewState = MutableLiveData<CategoriesViewState>()
-    val currentViewState: LiveData<CategoriesViewState>
-        get() = _currentViewState
+    private val _viewState = MutableLiveData<CategoriesViewState>()
+    val viewState: LiveData<CategoriesViewState>
+        get() = _viewState
 
     private val _viewEffect = MutableLiveData<CategoriesViewEffect>()
     val viewEffect: LiveData<CategoriesViewEffect>
         get() = _viewEffect
 
     init {
-        _currentViewState.value = CategoriesViewState()
+        _viewState.value = CategoriesViewState()
     }
 
     /**
@@ -48,15 +48,15 @@ class CategoriesViewModel : ViewModel() {
      * Load the categories from the network
      */
     private fun loadCategories() {
-        _currentViewState.value = _currentViewState.value!!.copy(isLoading = true)
+        _viewState.value = _viewState.value!!.copy(isLoading = true)
 
         viewModelScope.launch(Dispatchers.IO) {
             delay(5000L)
 
             withContext(Dispatchers.Main) {
-                _currentViewState.value = CategoriesViewState(
-                    false,
-                    listOf(
+                _viewState.value = _viewState.value!!.copy(
+                    isLoading = false,
+                    categories = listOf(
                         Category("One"),
                         Category("Two"),
                         Category("Three"),
@@ -66,6 +66,11 @@ class CategoriesViewModel : ViewModel() {
                         Category("Seven"),
                     )
                 )
+            }
+
+            delay(3000L)
+            withContext(Dispatchers.Main) {
+                _viewEffect.value = CategoriesViewEffect.ShowError("No internet connection")
             }
         }
     }

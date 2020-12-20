@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.drawable.ColorDrawable
@@ -20,29 +21,10 @@ class BottomInformationView(
     private val attributeSet: AttributeSet
 ) : ConstraintLayout(context, attributeSet) {
 
-    private var informationBackgroundColor: Int by CustomViewProperty(Color.WHITE)
-
-    //        set(value) {
-//            field = value
-//            invalidate()
-//        }
+    var informationBackgroundColor: Int by CustomViewProperty(Color.WHITE)
     var textColor: Int by CustomViewProperty(Color.BLACK)
-
-    //        set(value) {
-//            field = value
-//            invalidate()
-//        }
     var information: String by CustomViewProperty("")
-
-    //        set(value) {
-//            field = value
-//            invalidate()
-//        }
     var isLoading: Boolean by CustomViewProperty(false)
-//        set(value) {
-//            field = value
-//            invalidate()
-//        }
 
     private val progressBarBottomInformation: ProgressBar by lazy { findViewById(R.id.progressBarBottomInformation) }
     private val textViewBottomInformation: TextView by lazy { findViewById(R.id.textViewBottomInformation) }
@@ -56,28 +38,18 @@ class BottomInformationView(
                 setupProgressBar()
             }.recycle()
 
-//        animateOnEntry()
     }
 
-    /**
-     * Animate on entry sliding up the view
-     */
-//    private fun animateOnEntry() {
-//        ObjectAnimator.ofFloat(
-//            this@BottomInformationView,
-//            "translationY",
-//            100f
-//        ).apply {
-//            duration = 1000
-//
-//            addUpdateListener {
-//                Timber.i("Update to slide the view")
-//                invalidate()
-//            }
-//
-//            start()
-//        }
-//    }
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+
+        context.obtainStyledAttributes(attributeSet, R.styleable.BottomInformationView)
+            .apply {
+                setupBackgroundColor()
+                setupTextInformation()
+                setupProgressBar()
+            }.recycle()
+    }
 
     /**
      * Setup background color of the view
@@ -121,4 +93,21 @@ class BottomInformationView(
         }
     }
 
+    /**
+     * Make the view look like an error view
+     */
+    fun makeError(message: String) {
+        informationBackgroundColor = R.attr.colorError
+        textColor = R.attr.colorOnError
+        isLoading = false
+        information = message
+        isVisible = true
+        
+        background = ColorDrawable(informationBackgroundColor)
+        textViewBottomInformation.text = information
+        progressBarBottomInformation.isVisible = isLoading
+        textViewBottomInformation.setTextColor(textColor)
+
+        invalidate()
+    }
 }

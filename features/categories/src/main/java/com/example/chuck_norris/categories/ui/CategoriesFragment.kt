@@ -9,10 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.chuck_norris.categories.R
 import com.example.chuck_norris.categories.databinding.FragmentCategoriesBinding
 import com.example.chuck_norris.categories.ui.adapter.CategoriesAdapter
+import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
+import com.example.chuck_norris.customview.R
 
 class CategoriesFragment : Fragment() {
 
@@ -33,6 +34,7 @@ class CategoriesFragment : Fragment() {
 
         setupViews()
         observeViewState()
+        observeViewEffect()
 
         viewModel.processEvent(CategoriesViewEvent.LoadCategories)
     }
@@ -63,16 +65,27 @@ class CategoriesFragment : Fragment() {
         binding.recyclerViewCategories.adapter = categoriesAdapter
     }
 
-
     /**
      * Setup ViewState Observer
      */
     private fun observeViewState() {
-        viewModel.currentViewState.observe(viewLifecycleOwner, Observer { viewState ->
+        viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
             categoriesAdapter.insertData(viewState.categories!!)
             binding.bottomInformationViewCategories.isVisible = viewState.isLoading
         })
-
     }
 
+    /**
+     * Setup ViewEffect Observer
+     */
+    private fun observeViewEffect() {
+        viewModel.viewEffect.observe(viewLifecycleOwner, Observer { viewEffect ->
+            when (viewEffect) {
+                is CategoriesViewEffect.ShowError -> {
+                    binding.bottomInformationViewCategories.makeError(viewEffect.message)
+                }
+            }.exhaustive
+        })
+
+    }
 }
