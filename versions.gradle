@@ -23,6 +23,8 @@ versions.cardview = "1.0.0"
 versions.lifecycle = "2.2.0"
 versions.retrofit = "2.7.1"
 versions.okhttp = "4.3.1"
+versions.coil = "1.1.0"
+versions.room = "2.2.5"
 
 versions.nav_version = "2.3.2"
 

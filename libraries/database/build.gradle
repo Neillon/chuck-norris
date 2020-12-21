@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -33,10 +34,21 @@ android {
 }
 
 dependencies {
-
     implementation deps.kotlin.stdlib
     implementation deps.androidx.core_ktx
     implementation deps.androidx.app_compat
+
+    // Room
+    api deps.room.runtime
+    kapt deps.room.compiler
+    implementation deps.room.ktx
+    implementation deps.room.testing
+
+    // Timber
+    implementation deps.timber
+
+    // Koin
+    implementation deps.koin.android
 
     testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions

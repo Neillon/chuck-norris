@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="loading_joke">Carregando piada</string>
     <string name="show_online">Ver online</string>
+    <string name="favoriting_joke">Favoritando piada</string>
+    <string name="could_not_favorite_joke">Não foi possível favoritar</string>
 </resources>

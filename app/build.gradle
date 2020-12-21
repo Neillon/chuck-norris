@@ -50,6 +50,7 @@ dependencies {
 
     api project(":libraries:customview")
     api project(":libraries:network")
+    api project(":libraries:database")
 
     // Kotlin
     implementation deps.kotlin.stdlib

@@ -64,6 +64,20 @@ koin.andoidx_viewmodel = "org.koin:koin-androidx-viewmodel:$versions.koin"
 deps.koin = koin
 //endregion
 
+//region Coil
+deps.coil = "io.coil-kt:coil:$versions.coil"
+//endregion
+
+//region Room
+def room = [:]
+room.runtime = "androidx.room:room-runtime:$versions.room"
+room.compiler = "androidx.room:room-compiler:$versions.room"
+room.ktx = "androidx.room:room-ktx:$versions.room"
+room.testing = "androidx.room:room-testing:$versions.room"
+
+deps.room = room
+//endregion
+
 //---------- Testing ------------------//
 
 //region Espresso

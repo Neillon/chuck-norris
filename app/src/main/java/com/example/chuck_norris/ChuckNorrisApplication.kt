@@ -1,6 +1,7 @@
 package com.example.chuck_norris
 
 import android.app.Application
+import com.example.chuck_norris.database.di.DatabaseModule
 import com.example.chuck_norris.network.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -24,7 +25,8 @@ class ChuckNorrisApplication : Application() {
             androidContext(this@ChuckNorrisApplication)
             modules(
                 listOf(
-                    NetworkModule.dependencies
+                    NetworkModule.dependencies,
+                    DatabaseModule.dependencies
                 )
             )
         }

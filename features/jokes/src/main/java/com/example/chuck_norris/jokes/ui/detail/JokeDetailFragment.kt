@@ -13,6 +13,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
+import coil.load
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.jokes.R
 import com.example.chuck_norris.jokes.databinding.FragmentJokeDetailBinding
@@ -103,16 +106,27 @@ class JokeDetailFragment : Fragment() {
                 // Image icon
                 binding.imageViewJokeIcon.isVisible = viewState.joke.iconUrl.isNotEmpty()
                 viewState.joke.iconUrl.takeIf { it.isNotEmpty() }.run {
-                    binding.imageViewJokeIcon.loadImageFromUrl(this)
+                    binding.imageViewJokeIcon.load(this) {
+                        crossfade(true)
+                        placeholder(R.drawable.ic_image_outline)
+                        transformations(RoundedCornersTransformation(8f))
+                    }
                 }
             } else {
                 binding.textViewJokeDescription.isVisible = false
                 binding.buttonShowJokeOnline.isVisible = false
                 binding.imageViewJokeIcon.isVisible = false
-
             }
 
+            viewState.favoritingJoke.takeIf { it }?.run {
+                binding.bottomInformationViewJokeDetail.isVisible = true
+                binding.bottomInformationViewJokeDetail.isLoading = false
+                binding.bottomInformationViewJokeDetail.information = getString(R.string.favoriting_joke)
+            }
 
+            viewState.error?.let { message ->
+                binding.bottomInformationViewJokeDetail.makeError(message!!)
+            }
         })
     }
 
@@ -182,8 +196,4 @@ class JokeDetailFragment : Fragment() {
     private fun loadJokeFromArguments() {
         viewModel.processEvent(JokeDetailViewEvent.LoadJokeFromArguments(arguments.joke!!))
     }
-}
-
-private fun ImageView.loadImageFromUrl(s: String?) {
-    Timber.d("ok")
 }

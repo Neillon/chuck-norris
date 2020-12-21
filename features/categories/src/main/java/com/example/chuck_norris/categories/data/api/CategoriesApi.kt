@@ -1,9 +1,7 @@
 package com.example.chuck_norris.categories.data.api
 
-import com.example.chuck_norris.categories.data.response.JokeResponse
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Query
 
 interface CategoriesApi {
 
@@ -14,12 +12,4 @@ interface CategoriesApi {
     @GET("/jokes/categories")
     suspend fun getCategories(): Response<List<String>>
 
-    /**
-     * Retrieve a random joke by category
-     * [url] https://api.chucknorris.io/jokes/random?category={category}
-     */
-    @GET("/random")
-    suspend fun getRandomJokeByCategory(
-        @Query("category") category: String
-    ): Response<JokeResponse>
 }

@@ -8,5 +8,6 @@ data class JokeUI(
     val id: String,
     val iconUrl: String,
     val url: String,
-    val value: String
+    val value: String,
+    val isFavorite: Boolean = false
 ) : Parcelable

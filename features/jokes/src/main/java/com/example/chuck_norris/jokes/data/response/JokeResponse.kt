@@ -1,7 +1,6 @@
-package com.example.chuck_norris.categories.data.response
+package com.example.chuck_norris.jokes.data.response
 
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
 
 data class JokeResponse(
     @SerializedName("id") val id: String,
@@ -9,6 +8,6 @@ data class JokeResponse(
     @SerializedName("url") val url: String,
     @SerializedName("value") val value: String,
     @SerializedName("categories") val categories: List<String> = emptyList(),
-    @SerializedName("created_at") val createdAt: LocalDate,
-    @SerializedName("updated_at") val updatedAt: LocalDate
+    @SerializedName("created_at") val createdAt: String,
+    @SerializedName("updated_at") val updatedAt: String
 )
