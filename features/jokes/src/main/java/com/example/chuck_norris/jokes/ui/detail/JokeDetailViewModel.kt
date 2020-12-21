@@ -11,17 +11,22 @@ import com.example.chuck_norris.ui.JokeUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class JokeDetailViewModel :
     StateViewModel<JokeDetailViewState, JokeDetailViewEvent, JokeDetailViewEffect>() {
 
+    init {
+        _viewState.value = JokeDetailViewState(isLoadingJoke = false, joke = null)
+    }
+
     override fun processEvent(event: JokeDetailViewEvent) {
         when (event) {
-            is JokeDetailViewEvent.LoadJokeFromInteernetView -> {
+            is JokeDetailViewEvent.LoadJokeFromInternet -> {
                 loadJokeFromInternet(event.category)
             }
-            is JokeDetailViewEvent.LoadJokeView -> {
+            is JokeDetailViewEvent.LoadJokeFromArguments -> {
                 _viewState.value = _viewState.value!!.copy(
                     isLoadingJoke = false,
                     joke = event.joke
@@ -40,7 +45,24 @@ class JokeDetailViewModel :
      * Loads a random joke given a category
      */
     private fun loadJokeFromInternet(category: CategoryUI) {
-        Timber.i("Loaded from internet")
+        _viewState.value = _viewState.value!!.copy(
+            isLoadingJoke = true
+        )
+
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(2000L)
+            withContext(Dispatchers.Main) {
+                _viewState.value = _viewState.value!!.copy(
+                    isLoadingJoke = false,
+                    joke = JokeUI(
+                        id = "9ovbd5b1t66_x92jwrq1yq",
+                        value = "Chuck Norris once rode a bull, and nine months later it had a calf.",
+                        iconUrl = "iconUrl",
+                        url = "https://api.chucknorris.io/jokes/9ovbd5b1t66_x92jwrq1yq"
+                    )
+                )
+            }
+        }
     }
 
     /**
@@ -49,7 +71,10 @@ class JokeDetailViewModel :
     private fun favoriteJoke(joke: JokeUI) {
         viewModelScope.launch(Dispatchers.IO) {
             delay(2000L)
-            _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
+
+            withContext(Dispatchers.Main) {
+                _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
+            }
         }
     }
 }

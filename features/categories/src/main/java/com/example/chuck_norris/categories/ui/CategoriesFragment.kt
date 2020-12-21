@@ -119,10 +119,7 @@ class CategoriesFragment : Fragment(), CategoriesItemClick {
      * Item click for each item on the recyclerView
      */
     override fun onCategoryItemClick(item: CategoryUI) {
-        val action = CategoriesFragmentDirections.actionCategoriesFragmentToJokeDetailFragment(
-            category = item,
-            joke = null
-        )
+        val action = CategoriesFragmentDirections.actionCategoriesFragmentToJokeDetailFragment(category = item)
         navController.navigate(action)
     }
 

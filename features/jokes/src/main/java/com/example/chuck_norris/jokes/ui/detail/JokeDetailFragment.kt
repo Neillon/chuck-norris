@@ -16,12 +16,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.jokes.R
 import com.example.chuck_norris.jokes.databinding.FragmentJokeDetailBinding
+import com.example.chuck_norris.jokes.di.JokesModule
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEffect
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEvent
 import com.example.chuck_norris.ui.CategoryUI
 import com.example.chuck_norris.ui.JokeUI
-import kotlinx.android.parcel.RawValue
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.dsl.koinApplication
 import timber.log.Timber
 
 class JokeDetailFragment : Fragment() {
@@ -33,12 +36,9 @@ class JokeDetailFragment : Fragment() {
     private val viewModel: JokeDetailViewModel by viewModel()
     private lateinit var currentJoke: JokeUI
 
-    init {
-        arguments.joke?.let {
-            loadJokeFromArguments()
-        } ?: run {
-            loadJokeFromInternet(arguments.category!!)
-        }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        injectDependencies()
     }
 
     override fun onCreateView(
@@ -52,9 +52,25 @@ class JokeDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (arguments.joke != null) {
+            loadJokeFromArguments()
+        } else {
+            loadJokeFromInternet(arguments.category!!)
+        }
+
         setupViews()
         observeViewState()
         observeViewEffect()
+    }
+
+    /**
+     * Initializes the graph of dependencies
+     */
+    private fun injectDependencies() {
+        koinApplication {
+            unloadKoinModules(JokesModule.dependencies)
+            loadKoinModules(JokesModule.dependencies)
+        }
     }
 
     /**
@@ -62,32 +78,40 @@ class JokeDetailFragment : Fragment() {
      */
     private fun observeViewState() {
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
-            // Updates Current Joke
-            currentJoke = viewState.joke
 
             // Bottom Info
             binding.bottomInformationViewJokeDetail.isLoading = viewState.isLoadingJoke
             binding.bottomInformationViewJokeDetail.isVisible = viewState.isLoadingJoke
 
-            // Description
-            binding.textViewJokeDescription.text = viewState.joke.value
-            binding.textViewJokeDescription.isVisible = viewState.joke.value.isNotEmpty()
+            if (viewState.joke != null) {
+                currentJoke = viewState.joke
 
-            // Button Web
-            binding.buttonShowJokeOnline.isVisible = viewState.joke.url.isNotEmpty()
-            viewState.joke.url.takeIf { it.isNotEmpty() }.run {
-                binding.buttonShowJokeOnline.setOnClickListener {
-                    viewModel.processEvent(
-                        JokeDetailViewEvent.OpenJokeOnBrowser(viewState.joke.url)
-                    )
+                // Description
+                binding.textViewJokeDescription.text = viewState.joke.value
+                binding.textViewJokeDescription.isVisible = viewState.joke.value.isNotEmpty()
+
+                // Button Web
+                binding.buttonShowJokeOnline.isVisible = viewState.joke.url.isNotEmpty()
+                viewState.joke.url.takeIf { it.isNotEmpty() }.run {
+                    binding.buttonShowJokeOnline.setOnClickListener {
+                        viewModel.processEvent(
+                            JokeDetailViewEvent.OpenJokeOnBrowser(viewState.joke.url)
+                        )
+                    }
                 }
+
+                // Image icon
+                binding.imageViewJokeIcon.isVisible = viewState.joke.iconUrl.isNotEmpty()
+                viewState.joke.iconUrl.takeIf { it.isNotEmpty() }.run {
+                    binding.imageViewJokeIcon.loadImageFromUrl(this)
+                }
+            } else {
+                binding.textViewJokeDescription.isVisible = false
+                binding.buttonShowJokeOnline.isVisible = false
+                binding.imageViewJokeIcon.isVisible = false
+
             }
 
-            // Image icon
-            binding.imageViewJokeIcon.isVisible = viewState.joke.iconUrl.isNotEmpty()
-            viewState.joke.iconUrl.takeIf { it.isNotEmpty() }.run {
-                binding.imageViewJokeIcon.loadImageFromUrl(this)
-            }
 
         })
     }
@@ -149,14 +173,14 @@ class JokeDetailFragment : Fragment() {
      * Send event of loading to the ViewModel
      */
     private fun loadJokeFromInternet(category: CategoryUI) {
-        viewModel.processEvent(JokeDetailViewEvent.LoadJokeFromInteernetView(category))
+        viewModel.processEvent(JokeDetailViewEvent.LoadJokeFromInternet(category))
     }
 
     /**
      * Send event of loading to the ViewModel
      */
     private fun loadJokeFromArguments() {
-        viewModel.processEvent(JokeDetailViewEvent.LoadJokeView(arguments.joke!!))
+        viewModel.processEvent(JokeDetailViewEvent.LoadJokeFromArguments(arguments.joke!!))
     }
 }
 

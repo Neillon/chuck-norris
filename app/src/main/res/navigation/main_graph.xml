@@ -40,10 +40,12 @@
         <argument
             android:name="joke"
             app:argType="com.example.chuck_norris.ui.JokeUI"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
         <argument
             android:name="category"
             app:argType="com.example.chuck_norris.ui.CategoryUI"
-            app:nullable="true" />
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
