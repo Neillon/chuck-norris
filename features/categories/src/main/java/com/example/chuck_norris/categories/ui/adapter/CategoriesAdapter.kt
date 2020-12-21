@@ -21,7 +21,9 @@ class CategoriesDiffCallback : DiffUtil.ItemCallback<CategoryUI>() {
         oldItem.name == newItem.name
 }
 
-class CategoriesAdapter :
+class CategoriesAdapter(
+    private val categoryClick: CategoriesItemClick
+) :
     ListAdapter<CategoryUI, CategoriesAdapter.CategoriesViewHolder>(CategoriesDiffCallback()) {
 
     private lateinit var binding: ItemCategoryBinding
@@ -59,14 +61,23 @@ class CategoriesAdapter :
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val textViewName = itemView.findViewById<TextView>(R.id.textViewName)
-        private val imageButtonShowDetails = itemView.findViewById<ImageView>(R.id.imageButtonShowDetails)
+        private val imageButtonShowDetails =
+            itemView.findViewById<ImageView>(R.id.imageButtonShowDetails)
 
         /**
          * bind the data into the ViewHolder/List
          */
         fun bind(category: CategoryUI) {
             textViewName.text = category.name
-            imageButtonShowDetails.setOnClickListener { Timber.d("All good!") }
+
+            itemView.setOnClickListener { doClick(category) }
+            textViewName.setOnClickListener { doClick(category) }
+            imageButtonShowDetails.setOnClickListener { doClick(category) }
+        }
+
+        private fun doClick(category: CategoryUI) {
+            Timber.i("Clicked on category $category.name")
+            categoryClick.onCategoryItemClick(category)
         }
     }
 

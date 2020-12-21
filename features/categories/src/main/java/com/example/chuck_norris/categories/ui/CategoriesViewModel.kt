@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.chuck_norris.abstractions.StateViewModel
 import com.example.chuck_norris.categories.data.mappers.toUI
 import com.example.chuck_norris.categories.data.usecase.GetCategoriesUseCase
 import com.example.chuck_norris.categories.domain.Category
@@ -19,15 +20,7 @@ import timber.log.Timber
 
 class CategoriesViewModel(
     private val getCategoriesUseCase: GetCategoriesUseCase
-) : ViewModel() {
-
-    private val _viewState = MutableLiveData<CategoriesViewState>()
-    val viewState: LiveData<CategoriesViewState>
-        get() = _viewState
-
-    private val _viewEffect = MutableLiveData<CategoriesViewEffect>()
-    val viewEffect: LiveData<CategoriesViewEffect>
-        get() = _viewEffect
+) : StateViewModel<CategoriesViewState, CategoriesViewEvent, CategoriesViewEffect>() {
 
     init {
         _viewState.value = CategoriesViewState()
@@ -36,7 +29,7 @@ class CategoriesViewModel(
     /**
      * Process the events coming from the view
      */
-    fun processEvent(event: CategoriesViewEvent) {
+    override fun processEvent(event: CategoriesViewEvent) {
         when (event) {
             CategoriesViewEvent.LoadCategories -> {
                 loadCategories()

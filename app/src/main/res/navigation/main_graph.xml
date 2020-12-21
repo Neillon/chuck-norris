@@ -18,11 +18,19 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.chuck_norris.favorites.FavoritesFragment"
         android:label="@string/favorites"
-        tools:layout="@layout/fragment_jokes" />
+        tools:layout="@layout/fragment_jokes" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_jokeDetailFragment"
+            app:destination="@id/jokeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/jokesFragment"
         android:name="com.example.chuck_norris.jokes.ui.search.JokesFragment"
-        android:label="@string/jokes" />
+        android:label="@string/jokes" >
+        <action
+            android:id="@+id/action_jokesFragment_to_jokeDetailFragment"
+            app:destination="@id/jokeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/jokeDetailFragment"
         android:name="com.example.chuck_norris.jokes.ui.detail.JokeDetailFragment"
@@ -31,6 +39,11 @@
         tools:layout="@layout/fragment_joke_detail" >
         <argument
             android:name="joke"
-            app:argType="com.example.chuck_norris.domain.entities.Joke" />
+            app:argType="com.example.chuck_norris.ui.JokeUI"
+            app:nullable="true" />
+        <argument
+            android:name="category"
+            app:argType="com.example.chuck_norris.ui.CategoryUI"
+            app:nullable="true" />
     </fragment>
 </navigation>
