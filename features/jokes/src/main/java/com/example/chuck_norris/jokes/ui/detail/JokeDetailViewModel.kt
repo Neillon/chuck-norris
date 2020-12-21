@@ -5,9 +5,9 @@ import com.example.chuck_norris.abstractions.StateViewModel
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.jokes.data.mappers.toDomain
 import com.example.chuck_norris.jokes.data.mappers.toUI
-import com.example.chuck_norris.jokes.data.usecase.FavoriteJokeUseCase
-import com.example.chuck_norris.jokes.data.usecase.FindJokeByRemoteIdUseCase
-import com.example.chuck_norris.jokes.data.usecase.GetRandomJokeByCategoryUseCase
+import com.example.chuck_norris.jokes.domain.usecase.FavoriteJokeUseCase
+import com.example.chuck_norris.jokes.domain.usecase.FindJokeByRemoteIdUseCase
+import com.example.chuck_norris.jokes.domain.usecase.GetRandomJokeByCategoryUseCase
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEffect
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEvent
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewState
@@ -15,10 +15,8 @@ import com.example.chuck_norris.network.abstractions.Either
 import com.example.chuck_norris.ui.CategoryUI
 import com.example.chuck_norris.ui.JokeUI
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 class JokeDetailViewModel(
     private val getRandomJokeByCategoryUseCase: GetRandomJokeByCategoryUseCase,
@@ -36,11 +34,13 @@ class JokeDetailViewModel(
             is JokeDetailViewEvent.LoadJokeFromInternet ->
                 loadJokeFromInternet(event.category)
 
-            is JokeDetailViewEvent.LoadJokeFromArguments ->
+            is JokeDetailViewEvent.LoadJokeFromArguments -> {
                 _viewState.value = _viewState.value!!.copy(
-                    isLoadingJoke = false,
-                    joke = event.joke
-                )
+                        isLoadingJoke = false,
+                        joke = event.joke
+                    )
+                _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
+            }
 
             is JokeDetailViewEvent.FavoriteJoke -> favoriteJoke(event.joke)
 

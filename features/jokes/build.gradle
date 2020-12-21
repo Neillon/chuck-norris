@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id "androidx.navigation.safeargs.kotlin"
 }
+
 android {
     compileSdkVersion build_versions.build_sdk
     buildToolsVersion "30.0.3"
@@ -76,9 +77,6 @@ dependencies {
     implementation deps.koin.android
     implementation deps.koin.androidx_scope
     implementation deps.koin.andoidx_viewmodel
-
-    // Coil
-    implementation deps.coil
 
     // Test implementations
     testImplementation  deps.junit.junit

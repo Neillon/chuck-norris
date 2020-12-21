@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_16"
-        android:maxLines="5"
+
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_16"
         android:text="@string/show_online"
+        app:layout_constraintBottom_toTopOf="@+id/bottomInformationViewJokeDetail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

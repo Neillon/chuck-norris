@@ -80,6 +80,9 @@ dependencies {
     // Koin
     implementation deps.koin.android
 
+    // Coil
+    api deps.coil
+
     // Test
     testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions

@@ -162,7 +162,7 @@ class JokeDetailFragment : Fragment() {
     private fun setupToolbar() {
         binding.toolbarJokeDetail.setupWithNavController(navController)
 
-        arguments.category?.let { binding.toolbarJokeDetail.title = it.name }
+        binding.toolbarJokeDetail.title = arguments.category?.let { it.name } ?: ""
 
         binding.toolbarJokeDetail.menu.findItem(R.id.favoriteJokeItem)
             .setOnMenuItemClickListener { menuItem ->

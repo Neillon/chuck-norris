@@ -57,8 +57,23 @@ dependencies {
     // Lifecycle
     implementation deps.lifecycle.extensions
 
+    // Navigation
+    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.navigation_ui
+    implementation deps.navigation.dynamic_features
+    implementation deps.navigation.fragment_ktx
+
     // Timber
     implementation deps.timber
+
+    // Retrofit
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.runtime
+
+    // Koin
+    implementation deps.koin.android
+    implementation deps.koin.androidx_scope
+    implementation deps.koin.andoidx_viewmodel
 
     // Test implementations
     testImplementation  deps.junit.junit

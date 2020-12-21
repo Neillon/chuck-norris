@@ -5,9 +5,9 @@ import com.example.chuck_norris.jokes.data.repository.JokeLocalRepository
 import com.example.chuck_norris.jokes.data.repository.JokeLocalRepositoryImpl
 import com.example.chuck_norris.jokes.data.repository.JokeRemoteRepositoryImpl
 import com.example.chuck_norris.jokes.data.repository.JokeRemoteRepository
-import com.example.chuck_norris.jokes.data.usecase.FavoriteJokeUseCase
-import com.example.chuck_norris.jokes.data.usecase.FindJokeByRemoteIdUseCase
-import com.example.chuck_norris.jokes.data.usecase.GetRandomJokeByCategoryUseCase
+import com.example.chuck_norris.jokes.domain.usecase.FavoriteJokeUseCase
+import com.example.chuck_norris.jokes.domain.usecase.FindJokeByRemoteIdUseCase
+import com.example.chuck_norris.jokes.domain.usecase.GetRandomJokeByCategoryUseCase
 import com.example.chuck_norris.jokes.ui.detail.JokeDetailViewModel
 import com.example.chuck_norris.network.RetrofitFactory
 import org.koin.androidx.viewmodel.dsl.viewModel

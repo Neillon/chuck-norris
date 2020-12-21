@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.chuck_norris.favorites.FavoritesFragment"
+        android:name="com.example.chuck_norris.favorites.ui.FavoritesFragment"
         android:label="@string/favorites"
         tools:layout="@layout/fragment_jokes" >
         <action

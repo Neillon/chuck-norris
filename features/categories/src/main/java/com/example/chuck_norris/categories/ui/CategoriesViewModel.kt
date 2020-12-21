@@ -1,12 +1,9 @@
 package com.example.chuck_norris.categories.ui
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chuck_norris.abstractions.StateViewModel
 import com.example.chuck_norris.categories.data.mappers.toUI
-import com.example.chuck_norris.categories.data.usecase.GetCategoriesUseCase
+import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCase
 import com.example.chuck_norris.categories.domain.Category
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
 import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent

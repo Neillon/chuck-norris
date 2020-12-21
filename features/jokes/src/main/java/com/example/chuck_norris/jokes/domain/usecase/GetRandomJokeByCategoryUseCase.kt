@@ -1,4 +1,4 @@
-package com.example.chuck_norris.jokes.data.usecase
+package com.example.chuck_norris.jokes.domain.usecase
 
 import com.example.chuck_norris.abstractions.UseCase
 import com.example.chuck_norris.domain.entities.Joke
