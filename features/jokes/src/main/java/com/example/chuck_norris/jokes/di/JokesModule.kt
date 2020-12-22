@@ -8,7 +8,9 @@ import com.example.chuck_norris.jokes.data.repository.JokeRemoteRepository
 import com.example.chuck_norris.jokes.domain.usecase.FavoriteJokeUseCase
 import com.example.chuck_norris.jokes.domain.usecase.FindJokeByRemoteIdUseCase
 import com.example.chuck_norris.jokes.domain.usecase.GetRandomJokeByCategoryUseCase
+import com.example.chuck_norris.jokes.domain.usecase.SearchJokeByDescriptionUseCase
 import com.example.chuck_norris.jokes.ui.detail.JokeDetailViewModel
+import com.example.chuck_norris.jokes.ui.search.SearchJokesViewModel
 import com.example.chuck_norris.network.RetrofitFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -27,9 +29,11 @@ object JokesModule {
         factory { GetRandomJokeByCategoryUseCase(get()) }
         factory { FindJokeByRemoteIdUseCase(get()) }
         factory { FavoriteJokeUseCase(get(), get()) }
+        factory { SearchJokeByDescriptionUseCase(get()) }
 
         // ViewModel
         viewModel { JokeDetailViewModel(get(), get(), get()) }
+        viewModel { SearchJokesViewModel(get()) }
 
     }
 }

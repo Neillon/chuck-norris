@@ -14,7 +14,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/jokesFragment"
+        android:id="@+id/searchJokesFragment"
         android:icon="@drawable/bottom_nav_jokes_selector"
         android:title="@string/jokes"
         app:showAsAction="ifRoom" />

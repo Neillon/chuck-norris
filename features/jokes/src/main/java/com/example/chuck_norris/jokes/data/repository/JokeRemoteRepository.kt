@@ -12,4 +12,9 @@ interface JokeRemoteRepository: Repository<Joke> {
      */
     suspend fun getRandomJokeByCategory(category: String): Either<Joke, BaseNetworkException>
 
+    /**
+     * Retrieve joke by description
+     */
+    suspend fun searchJoke(description: String): Either<List<Joke>, BaseNetworkException>
+
 }

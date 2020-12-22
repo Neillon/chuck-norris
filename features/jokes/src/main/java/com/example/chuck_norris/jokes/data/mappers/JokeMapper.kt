@@ -5,7 +5,6 @@ import com.example.chuck_norris.domain.entities.Category
 import com.example.chuck_norris.domain.entities.Joke
 import com.example.chuck_norris.jokes.data.response.JokeResponse
 import com.example.chuck_norris.ui.JokeUI
-import java.time.LocalDate
 
 fun List<String>.toDomain() = this.map { Category(it) }
 
@@ -17,12 +16,16 @@ fun JokeResponse.toDomain() = Joke(
     categories = this.categories.toDomain()
 )
 
+fun List<JokeResponse>.toJokeList() = this.map { it.toDomain() }
+
 fun Joke.toUI() = JokeUI(
     id = this.id,
     iconUrl = this.iconUrl,
     url = this.url,
     value = this.value
 )
+
+fun List<Joke>.toUI(favorite: Boolean = true) = this.map { it.toUI().apply { isFavorite = favorite } }
 
 fun JokeUI.toDomain() = Joke(
     id = this.id,

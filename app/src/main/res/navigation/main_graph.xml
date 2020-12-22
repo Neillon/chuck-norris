@@ -24,14 +24,6 @@
             app:destination="@id/jokeDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/jokesFragment"
-        android:name="com.example.chuck_norris.jokes.ui.search.JokesFragment"
-        android:label="@string/jokes" >
-        <action
-            android:id="@+id/action_jokesFragment_to_jokeDetailFragment"
-            app:destination="@id/jokeDetailFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/jokeDetailFragment"
         android:name="com.example.chuck_norris.jokes.ui.detail.JokeDetailFragment"
         app:moduleName="chuck-norris.features.jokes"
@@ -47,5 +39,14 @@
             app:argType="com.example.chuck_norris.ui.CategoryUI"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchJokesFragment"
+        android:name="com.example.chuck_norris.jokes.ui.search.SearchJokesFragment"
+        app:moduleName="chuck-norris.features.jokes"
+        android:label="SearchJokesFragment" >
+        <action
+            android:id="@+id/action_searchJokesFragment_to_jokeDetailFragment"
+            app:destination="@id/jokeDetailFragment" />
     </fragment>
 </navigation>

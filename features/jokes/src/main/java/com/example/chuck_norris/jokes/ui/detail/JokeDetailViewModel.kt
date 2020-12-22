@@ -35,11 +35,7 @@ class JokeDetailViewModel(
                 loadJokeFromInternet(event.category)
 
             is JokeDetailViewEvent.LoadJokeFromArguments -> {
-                _viewState.value = _viewState.value!!.copy(
-                        isLoadingJoke = false,
-                        joke = event.joke
-                    )
-                _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
+                updateViewStateFromArguments(event.joke)
             }
 
             is JokeDetailViewEvent.FavoriteJoke -> favoriteJoke(event.joke)
@@ -48,6 +44,19 @@ class JokeDetailViewModel(
                 _viewEffect.value = JokeDetailViewEffect.OpenJokeOnBrowser(event.jokeUrl)
 
         }.exhaustive
+    }
+
+    /**
+     * Update the viewstate when data come from arguments
+     */
+    private fun updateViewStateFromArguments(joke: JokeUI) {
+        if (joke.isFavorite)
+            _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
+
+        _viewState.value = _viewState.value!!.copy(
+            isLoadingJoke = false,
+            joke = joke
+        )
     }
 
     /**

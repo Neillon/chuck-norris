@@ -4,4 +4,5 @@
     <string name="show_online">Ver online</string>
     <string name="favoriting_joke">Favoritando piada</string>
     <string name="could_not_favorite_joke">Não foi possível favoritar</string>
+    <string name="searching_jokes">Buscando piadas</string>
 </resources>
