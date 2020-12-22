@@ -9,12 +9,11 @@ import com.example.chuck_norris.network.exception.GenericNetworkException
 import com.example.chuck_norris.network.manager.NetworkManager
 
 class CategoriesRemoteRepository(
-    private val categoriesApi: CategoriesApi,
-    private val networkManager: NetworkManager
+    private val categoriesApi: CategoriesApi
 ) : CategoriesRepository {
 
     override suspend fun getCategories(): Either<List<Category>, BaseNetworkException> = try {
-        val data = networkManager.doAsyncRequest {
+        val data = NetworkManager.doAsyncRequest {
             categoriesApi.getCategories()
         }.toCategoryList()
 

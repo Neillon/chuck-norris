@@ -18,8 +18,7 @@ object CategoriesModule {
         // Repository
         factory<CategoriesRepository> {
             CategoriesRemoteRepository(
-                categoriesApi = get(),
-                networkManager = get()
+                categoriesApi = get()
             )
         }
 

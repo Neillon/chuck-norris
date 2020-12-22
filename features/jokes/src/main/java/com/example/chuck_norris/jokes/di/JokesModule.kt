@@ -22,7 +22,7 @@ object JokesModule {
         single { RetrofitFactory.createService(JokeApi::class.java) }
 
         // Repository
-        single<JokeRemoteRepository> { JokeRemoteRepositoryImpl(get(), get()) }
+        single<JokeRemoteRepository> { JokeRemoteRepositoryImpl(get()) }
         single<JokeLocalRepository> { JokeLocalRepositoryImpl(get(), get()) }
 
         // UseCase

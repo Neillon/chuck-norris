@@ -6,8 +6,10 @@ def deps = [:]
 
 //region AndroidX
 def androidx = [:]
-androidx.annotations = "androidx.annotation:annotation:$versions.androidx"
+androidx.annotations = "androidx.annotation:annotation:$versions.coretesting"
+androidx.coretesting = "android.arch.core:core-testing:$versions.coretesting"
 androidx.fragment_ktx = "androidx.fragment:fragment-ktx:$versions.fragment_ktx"
+androidx.fragmenttesting = "androidx.fragment:fragment-testing:1.2.5"
 androidx.app_compat = "androidx.appcompat:appcompat:$versions.androidx"
 androidx.core_ktx = "androidx.core:core-ktx:$versions.core_ktx"
 androidx.cardview = "androidx.cardview:cardview:$versions.cardview"
@@ -94,6 +96,10 @@ junit.extensions = "androidx.test.ext:junit:$versions.junit_test_extensions"
 deps.junit = junit
 
 //endregion
+
+deps.mockk = "io.mockk:mockk:$versions.mockk"
+deps.coroutinestest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
+deps.mockwebserver = "com.squareup.okhttp3:mockwebserver:4.2.0"
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"

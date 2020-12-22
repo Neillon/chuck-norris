@@ -10,13 +10,12 @@ import com.example.chuck_norris.network.exception.GenericNetworkException
 import com.example.chuck_norris.network.manager.NetworkManager
 
 class JokeRemoteRepositoryImpl(
-    private val api: JokeApi,
-    private val networkManager: NetworkManager
+    private val api: JokeApi
 ) : JokeRemoteRepository {
 
     override suspend fun getRandomJokeByCategory(category: String): Either<Joke, BaseNetworkException> =
         try {
-            val data = networkManager.doAsyncRequest {
+            val data = NetworkManager.doAsyncRequest {
                 api.getRandomJokeByCategory(category)
             }.toDomain()
 
@@ -29,7 +28,7 @@ class JokeRemoteRepositoryImpl(
 
     override suspend fun searchJoke(description: String): Either<List<Joke>, BaseNetworkException> =
         try {
-            val data = networkManager.doAsyncRequest {
+            val data = NetworkManager.doAsyncRequest {
                 api.search(description)
             }
             Either.value(data.result.toJokeList())

@@ -62,7 +62,7 @@ dependencies {
     implementation deps.navigation.fragment_ktx
     implementation deps.navigation.navigation_ui
     implementation deps.navigation.dynamic_features
-    implementation deps.navigation.fragment_ktx
+    implementation deps.navigation.testing
 
     // Timber
     implementation deps.timber
@@ -77,8 +77,13 @@ dependencies {
     implementation deps.koin.andoidx_viewmodel
 
     // Test implementations
-    testImplementation  deps.junit.junit
+    testImplementation deps.junit.junit
+    testImplementation deps.coroutinestest
+    testImplementation deps.mockwebserver
+    testImplementation deps.mockk
+
+    androidTestImplementation deps.androidx.annotations
+    testImplementation deps.androidx.coretesting
     androidTestImplementation deps.junit.extensions
     androidTestImplementation deps.espresso.core
-    androidTestImplementation deps.androidx.annotations
 }
