@@ -100,6 +100,9 @@ deps.junit = junit
 deps.mockk = "io.mockk:mockk:$versions.mockk"
 deps.coroutinestest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines"
 deps.mockwebserver = "com.squareup.okhttp3:mockwebserver:4.2.0"
+deps.mockito = 'org.mockito:mockito-android:3.6.28'
+
+
 
 deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_gradle_plugin"
 deps.timber = "com.jakewharton.timber:timber:$versions.timber"
