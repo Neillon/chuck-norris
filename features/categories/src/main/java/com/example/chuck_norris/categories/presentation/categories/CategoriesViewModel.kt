@@ -1,22 +1,23 @@
-package com.example.chuck_norris.categories.ui
+package com.example.chuck_norris.categories.presentation.categories
 
 import androidx.lifecycle.viewModelScope
-import com.example.chuck_norris.abstractions.StateViewModel
-import com.example.chuck_norris.categories.data.mappers.toUI
-import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCase
-import com.example.chuck_norris.categories.domain.Category
-import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
-import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
-import com.example.chuck_norris.categories.ui.data.CategoriesViewState
+import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCaseImpl
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewEffect
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewEvent
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewState
+import com.example.chuck_norris.common.Either
+import com.example.chuck_norris.common.StateViewModel
+import com.example.chuck_norris.entities.Category
 import com.example.chuck_norris.extensions.exhaustive
-import com.example.chuck_norris.network.abstractions.Either
+import com.example.chuck_norris.mappers.toUI
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CategoriesViewModel(
-    private val getCategoriesUseCase: GetCategoriesUseCase
+    private val getCategoriesUseCase: GetCategoriesUseCaseImpl
 ) : StateViewModel<CategoriesViewState, CategoriesViewEvent, CategoriesViewEffect>() {
 
     init {
@@ -46,27 +47,29 @@ class CategoriesViewModel(
         _viewState.value = _viewState.value!!.copy(isLoading = true)
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getCategoriesUseCase.execute(GetCategoriesUseCase.Params())
-
-            resultToViewState(result)
+            val result = getCategoriesUseCase.execute(Unit)
+            result
+                .collect { either ->
+                    withContext(Dispatchers.Main) {
+                        updateViewState(either)
+                    }
+                }
         }
     }
 
     /**
      * Transform the result into a valuable ViewState
      */
-    private suspend fun resultToViewState(result: Either<List<Category>, Exception>) {
+    private fun updateViewState(result: Either<List<Category>, Exception>) {
         when (result) {
             is Either.Value -> {
-                withContext(Dispatchers.Main) {
-                    _viewState.value = _viewState.value!!.copy(isLoading = false, categories = result.packet.toUI())
-                }
-
+                _viewState.value = _viewState.value!!.copy(
+                    isLoading = false,
+                    categories = result.packet.map { it.toUI() }
+                )
             }
             is Either.Error -> {
-                withContext(Dispatchers.Main) {
-                    _viewEffect.value = CategoriesViewEffect.ShowError(result.packet.message!!)
-                }
+                _viewEffect.value = CategoriesViewEffect.ShowError(result.packet.message!!)
             }
         }.exhaustive
     }

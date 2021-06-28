@@ -5,12 +5,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 object OkHttpExtensions {
 
-    internal fun OkHttpClient.Builder.addLogInterceptor(): OkHttpClient.Builder {
+    fun OkHttpClient.Builder.addLogInterceptor(): OkHttpClient.Builder {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
         addNetworkInterceptor(logging)
 
         return this
     }
-
 }

@@ -1,4 +1,4 @@
-package com.example.chuck_norris.categories.ui.data
+package com.example.chuck_norris.categories.presentation.categories.data
 
 import com.example.chuck_norris.ui.CategoryUI
 

@@ -1,29 +1,26 @@
 package com.example.chuck_norris.categories.di
 
 import com.example.chuck_norris.categories.data.api.CategoriesApi
-import com.example.chuck_norris.categories.data.repository.CategoriesRemoteRepository
-import com.example.chuck_norris.categories.data.repository.CategoriesRepository
-import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCase
-import com.example.chuck_norris.categories.ui.CategoriesViewModel
+import com.example.chuck_norris.categories.data.repository.CategoriesRepositoryImpl
+import com.example.chuck_norris.categories.domain.abstractions.CategoriesRepository
+import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCaseImpl
+import com.example.chuck_norris.categories.presentation.categories.CategoriesViewModel
 import com.example.chuck_norris.network.RetrofitFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 object CategoriesModule {
     val dependencies = module {
 
         // Api
-        single { RetrofitFactory.createService(CategoriesApi::class.java) }
+        single { RetrofitFactory.createService<CategoriesApi>() }
 
         // Repository
-        factory<CategoriesRepository> {
-            CategoriesRemoteRepository(
-                categoriesApi = get()
-            )
-        }
+        factory { CategoriesRepositoryImpl(get(), get()) } bind CategoriesRepository::class
 
         // UseCase
-        factory { GetCategoriesUseCase(repository = get()) }
+        factory { GetCategoriesUseCaseImpl(repository = get()) }
 
         // ViewModel
         viewModel { CategoriesViewModel(getCategoriesUseCase = get()) }

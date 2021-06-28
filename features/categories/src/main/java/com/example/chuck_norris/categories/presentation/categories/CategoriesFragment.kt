@@ -1,4 +1,4 @@
-package com.example.chuck_norris.categories.ui
+package com.example.chuck_norris.categories.presentation.categories
 
 import android.os.Build
 import android.os.Bundle
@@ -13,10 +13,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chuck_norris.categories.databinding.FragmentCategoriesBinding
 import com.example.chuck_norris.categories.di.CategoriesModule
-import com.example.chuck_norris.categories.ui.adapter.CategoriesAdapter
-import com.example.chuck_norris.categories.ui.adapter.CategoriesItemClick
-import com.example.chuck_norris.categories.ui.data.CategoriesViewEffect
-import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
+import com.example.chuck_norris.categories.presentation.categories.adapter.CategoriesAdapter
+import com.example.chuck_norris.categories.presentation.categories.adapter.CategoriesItemClick
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewEffect
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewEvent
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.ui.CategoryUI
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -95,7 +95,6 @@ class CategoriesFragment : Fragment(), CategoriesItemClick {
      */
     private fun observeViewState() {
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->
-            categoriesAdapter.clearData()
             categoriesAdapter.insertData(viewState.categories!!)
             binding.bottomInformationViewCategories.isVisible = viewState.isLoading
         })
@@ -119,7 +118,11 @@ class CategoriesFragment : Fragment(), CategoriesItemClick {
      * Item click for each item on the recyclerView
      */
     override fun onCategoryItemClick(item: CategoryUI) {
-        val action = CategoriesFragmentDirections.actionCategoriesFragmentToJokeDetailFragment(category = item)
+        val action =
+            CategoriesFragmentDirections.actionCategoriesFragmentToJokeDetailFragment(
+                category = item,
+                joke = null
+            )
         navController.navigate(action)
     }
 

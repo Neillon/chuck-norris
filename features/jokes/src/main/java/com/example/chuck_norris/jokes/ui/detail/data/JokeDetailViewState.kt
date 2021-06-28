@@ -6,5 +6,5 @@ data class JokeDetailViewState(
     val joke: JokeUI? = null,
     val isLoadingJoke: Boolean = false,
     val error: String? = null,
-    val favoritingJoke: Boolean = false
+    val favoriteJoke: Boolean = false
 )

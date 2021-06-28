@@ -76,7 +76,7 @@ dependencies {
     implementation deps.koin.andoidx_viewmodel
 
     // Test implementations
-    testImplementation  deps.junit.junit
+    testImplementation deps.junit.junit
     androidTestImplementation deps.junit.extensions
     androidTestImplementation deps.espresso.core
     androidTestImplementation deps.androidx.annotations

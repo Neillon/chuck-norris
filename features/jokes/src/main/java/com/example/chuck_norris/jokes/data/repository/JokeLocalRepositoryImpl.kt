@@ -1,12 +1,12 @@
 package com.example.chuck_norris.jokes.data.repository
 
 import android.content.Context
+import com.example.chuck_norris.common.Either
+import com.example.chuck_norris.entities.Joke
 import com.example.chuck_norris.database.ChuckNorrisDatabase
-import com.example.chuck_norris.domain.entities.Joke
 import com.example.chuck_norris.jokes.R
 import com.example.chuck_norris.jokes.data.mappers.toDomain
 import com.example.chuck_norris.jokes.data.mappers.toEntity
-import com.example.chuck_norris.network.abstractions.Either
 
 class JokeLocalRepositoryImpl(
     private val context: Context,

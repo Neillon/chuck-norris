@@ -1,7 +1,7 @@
 package com.example.chuck_norris.categories.mock
 
-import com.example.chuck_norris.categories.data.repository.CategoriesRepository
-import com.example.chuck_norris.categories.domain.Category
+import com.example.chuck_norris.categories.domain.abstractions.CategoriesRepository
+import Category
 import com.example.chuck_norris.network.abstractions.Either
 import com.example.chuck_norris.network.exception.BadRequestException
 import com.example.chuck_norris.network.exception.BaseNetworkException

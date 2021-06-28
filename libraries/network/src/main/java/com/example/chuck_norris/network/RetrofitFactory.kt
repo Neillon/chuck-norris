@@ -1,17 +1,15 @@
 package com.example.chuck_norris.network
 
 import com.example.chuck_norris.network.Constants.Network.GsonDefaults.gsonDefault
-import okhttp3.OkHttpClient
-import java.util.concurrent.TimeUnit
 import com.example.chuck_norris.network.extensions.OkHttpExtensions.addLogInterceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitFactory {
 
-    fun <S> createService(
-        api: Class<S>
-    ): S {
+    inline fun <reified S> createService(): S {
         val client = OkHttpClient.Builder().run {
             connectTimeout(Constants.Network.Limits.CONNECT, TimeUnit.SECONDS)
             readTimeout(Constants.Network.Limits.READ, TimeUnit.SECONDS)
@@ -25,7 +23,7 @@ object RetrofitFactory {
             addConverterFactory(GsonConverterFactory.create(gsonDefault))
             baseUrl(BuildConfig.BASE_URL)
             build()
-        }.create(api)
+        }.create(S::class.java)
     }
 
 }

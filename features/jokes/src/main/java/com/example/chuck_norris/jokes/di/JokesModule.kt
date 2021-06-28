@@ -19,7 +19,7 @@ object JokesModule {
     val dependencies = module {
 
         //Api
-        single { RetrofitFactory.createService(JokeApi::class.java) }
+        single { RetrofitFactory.createService<JokeApi>() }
 
         // Repository
         single<JokeRemoteRepository> { JokeRemoteRepositoryImpl(get()) }
@@ -32,7 +32,7 @@ object JokesModule {
         factory { SearchJokeByDescriptionUseCase(get()) }
 
         // ViewModel
-        viewModel { JokeDetailViewModel(get(), get(), get()) }
+        viewModel { JokeDetailViewModel(get(), get()) }
         viewModel { SearchJokesViewModel(get()) }
 
     }

@@ -1,13 +1,12 @@
 package com.example.chuck_norris.favorites.ui
 
 import androidx.lifecycle.viewModelScope
-import com.example.chuck_norris.abstractions.StateViewModel
+import com.example.chuck_norris.common.StateViewModel
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.favorites.data.mappers.toUI
 import com.example.chuck_norris.favorites.domain.usecase.GetFavoriteJokesUseCase
 import com.example.chuck_norris.favorites.ui.data.FavoritesViewEvent
 import com.example.chuck_norris.favorites.ui.data.FavoritesViewState
-import com.example.chuck_norris.network.abstractions.Either
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -37,12 +36,12 @@ class FavoritesViewModel(
 
             withContext(Dispatchers.Main) {
                 when (result) {
-                    is Either.Value ->
+                    is com.example.chuck_norris.common.Either.Value ->
                         _viewState.value = _viewState.value!!.copy(
                             isLoading = false,
                             jokes = result.packet.toUI()
                         )
-                    is Either.Error ->
+                    is com.example.chuck_norris.common.Either.Error ->
                         _viewState.value =
                             _viewState.value!!.copy(
                                 isLoading = false,

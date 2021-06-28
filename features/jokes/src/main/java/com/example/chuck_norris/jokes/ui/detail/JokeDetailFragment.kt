@@ -3,18 +3,16 @@ package com.example.chuck_norris.jokes.ui.detail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
 import coil.load
-import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.jokes.R
@@ -28,7 +26,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 import org.koin.dsl.koinApplication
-import timber.log.Timber
 
 class JokeDetailFragment : Fragment() {
 
@@ -47,7 +44,7 @@ class JokeDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentJokeDetailBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -118,10 +115,11 @@ class JokeDetailFragment : Fragment() {
                 binding.imageViewJokeIcon.isVisible = false
             }
 
-            viewState.favoritingJoke.takeIf { it }?.run {
+            viewState.favoriteJoke.takeIf { it }?.run {
                 binding.bottomInformationViewJokeDetail.isVisible = true
                 binding.bottomInformationViewJokeDetail.isLoading = false
-                binding.bottomInformationViewJokeDetail.information = getString(R.string.favoriting_joke)
+                binding.bottomInformationViewJokeDetail.information =
+                    getString(R.string.favoriting_joke)
             }
 
             viewState.error?.let { message ->
@@ -162,7 +160,9 @@ class JokeDetailFragment : Fragment() {
     private fun setupToolbar() {
         binding.toolbarJokeDetail.setupWithNavController(navController)
 
-        binding.toolbarJokeDetail.title = arguments.category?.let { it.name } ?: ""
+        if (arguments.category != null) {
+            binding.toolbarJokeDetail.title = arguments.category?.let { it.name }
+        }
 
         binding.toolbarJokeDetail.menu.findItem(R.id.favoriteJokeItem)
             .setOnMenuItemClickListener { menuItem ->

@@ -3,11 +3,11 @@ package com.example.chuck_norris.categories.viewmodel
 import androidx.lifecycle.Observer
 import com.example.chuck_norris.categories.abstractions.BaseCoroutineTest
 import com.example.chuck_norris.categories.data.mappers.toUI
-import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCase
+import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCaseImpl
 import com.example.chuck_norris.categories.mock.Mocks
-import com.example.chuck_norris.categories.ui.CategoriesViewModel
-import com.example.chuck_norris.categories.ui.data.CategoriesViewEvent
-import com.example.chuck_norris.categories.ui.data.CategoriesViewState
+import com.example.chuck_norris.categories.presentation.categories.CategoriesViewModel
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewEvent
+import com.example.chuck_norris.categories.presentation.categories.data.CategoriesViewState
 import com.example.chuck_norris.network.abstractions.Either
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -26,7 +26,7 @@ class CategoriesViewModelTest : BaseCoroutineTest() {
     private lateinit var viewModel: CategoriesViewModel
 
     @MockK(relaxed = true)
-    private lateinit var getCategoriesUseCase: GetCategoriesUseCase
+    private lateinit var getCategoriesUseCase: GetCategoriesUseCaseImpl
 
     @MockK(relaxed = true)
     private lateinit var viewStateObserver: Observer<CategoriesViewState>

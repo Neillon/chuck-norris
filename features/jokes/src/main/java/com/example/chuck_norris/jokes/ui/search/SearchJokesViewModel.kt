@@ -1,14 +1,14 @@
 package com.example.chuck_norris.jokes.ui.search
 
 import androidx.lifecycle.viewModelScope
-import com.example.chuck_norris.abstractions.StateViewModel
-import com.example.chuck_norris.domain.entities.Joke
+import com.example.chuck_norris.common.Either
+import com.example.chuck_norris.common.StateViewModel
+import com.example.chuck_norris.entities.Joke
 import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.jokes.data.mappers.toUI
 import com.example.chuck_norris.jokes.domain.usecase.SearchJokeByDescriptionUseCase
 import com.example.chuck_norris.jokes.ui.search.data.SearchJokesViewEvent
 import com.example.chuck_norris.jokes.ui.search.data.SearchJokesViewState
-import com.example.chuck_norris.network.abstractions.Either
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -60,7 +60,8 @@ class SearchJokesViewModel(
      */
     private suspend fun updateViewStateWithValue(packet: List<Joke>) =
         withContext(Dispatchers.Main) {
-            _viewState.value = _viewState.value!!.copy(isLoading = false, error = null, jokes = packet.toUI(false))
+            _viewState.value =
+                _viewState.value!!.copy(isLoading = false, error = null, jokes = packet.toUI(false))
         }
 
     /**

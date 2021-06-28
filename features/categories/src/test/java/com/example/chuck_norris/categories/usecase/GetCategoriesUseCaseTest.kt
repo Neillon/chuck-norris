@@ -1,8 +1,8 @@
 package com.example.chuck_norris.categories.usecase
 
-import com.example.chuck_norris.categories.data.repository.CategoriesRepository
-import com.example.chuck_norris.categories.domain.Category
-import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCase
+import com.example.chuck_norris.categories.domain.abstractions.CategoriesRepository
+import Category
+import com.example.chuck_norris.categories.domain.usecase.GetCategoriesUseCaseImpl
 import com.example.chuck_norris.network.abstractions.Either
 import com.example.chuck_norris.network.exception.GenericNetworkException
 import io.mockk.coEvery
@@ -23,8 +23,8 @@ class GetCategoriesUseCaseTest {
 
             coEvery { repositoryDoc.getCategories() } returns returnValue
 
-            val sut = GetCategoriesUseCase(repositoryDoc)
-            val params = GetCategoriesUseCase.Params()
+            val sut = GetCategoriesUseCaseImpl(repositoryDoc)
+            val params = GetCategoriesUseCaseImpl.Params()
             val result = sut.execute(params) as Either.Value<List<Category>>
 
             assertEquals(returnValue, result)
@@ -38,8 +38,8 @@ class GetCategoriesUseCaseTest {
 
             coEvery { repositoryDoc.getCategories() } returns returnValue
 
-            val sut = GetCategoriesUseCase(repositoryDoc)
-            val params = GetCategoriesUseCase.Params()
+            val sut = GetCategoriesUseCaseImpl(repositoryDoc)
+            val params = GetCategoriesUseCaseImpl.Params()
             val result = sut.execute(params) as Either.Error<*>
 
             assertEquals(returnValue, result)

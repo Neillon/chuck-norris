@@ -1,13 +1,9 @@
 package com.example.chuck_norris.categories.data.mappers
 
-import com.example.chuck_norris.categories.domain.Category
-import com.example.chuck_norris.ui.CategoryUI
+import com.example.chuck_norris.database.entities.CategoryEntity
+import com.example.chuck_norris.entities.Category
 
-internal fun List<String>.toCategoryList() = this.map { Category(it) }
+internal fun CategoryEntity.toDomain() = Category(this.name)
+internal fun String.toDomain() = Category(this)
 
-internal fun String.toCategory() = Category(this)
-
-internal fun Category.toUI() = CategoryUI(this.name)
-internal fun CategoryUI.toDomain() = Category(this.name)
-
-internal fun List<Category>.toUI() = this.map { CategoryUI(it.name) }
+internal fun String.toEntity() = CategoryEntity(name = this)

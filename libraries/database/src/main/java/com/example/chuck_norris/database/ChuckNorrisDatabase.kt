@@ -4,16 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.chuck_norris.database.dao.CategoryDao
 import com.example.chuck_norris.database.dao.JokeDao
+import com.example.chuck_norris.database.entities.CategoryEntity
 import com.example.chuck_norris.database.entities.JokeEntity
 
 @Database(
-    entities = [JokeEntity::class],
+    entities = [JokeEntity::class, CategoryEntity::class],
     version = Constants.DB_VERSION
 )
 abstract class ChuckNorrisDatabase : RoomDatabase() {
 
     abstract fun jokeDao(): JokeDao
+    abstract fun categoriesDao(): CategoryDao
 
     companion object {
         private val instance: ChuckNorrisDatabase? = null
@@ -29,5 +32,4 @@ abstract class ChuckNorrisDatabase : RoomDatabase() {
             ).build()
         }
     }
-
 }

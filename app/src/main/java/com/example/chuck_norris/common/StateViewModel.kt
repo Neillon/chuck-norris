@@ -1,4 +1,4 @@
-package com.example.chuck_norris.abstractions
+package com.example.chuck_norris.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

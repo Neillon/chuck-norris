@@ -1,7 +1,5 @@
 package com.example.chuck_norris.jokes.ui.search
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -40,7 +38,7 @@ class SearchJokesFragment : Fragment(), JokesItemClick {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentJokesBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -132,7 +130,10 @@ class SearchJokesFragment : Fragment(), JokesItemClick {
 
     override fun onItemClick(joke: JokeUI) {
         val action =
-            SearchJokesFragmentDirections.actionSearchJokesFragmentToJokeDetailFragment(joke = joke)
+            SearchJokesFragmentDirections.actionSearchJokesFragmentToJokeDetailFragment(
+                joke = joke,
+                category = null
+            )
         navController.navigate(action)
     }
 }

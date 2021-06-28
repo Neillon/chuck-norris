@@ -1,9 +1,9 @@
 package com.example.chuck_norris.jokes.domain.usecase
 
-import com.example.chuck_norris.abstractions.UseCase
-import com.example.chuck_norris.domain.entities.Joke
+import com.example.chuck_norris.common.Either
+import com.example.chuck_norris.common.UseCase
+import com.example.chuck_norris.entities.Joke
 import com.example.chuck_norris.jokes.data.repository.JokeLocalRepository
-import com.example.chuck_norris.network.abstractions.Either
 
 class FindJokeByRemoteIdUseCase(
     private val repository: JokeLocalRepository

@@ -1,4 +1,4 @@
-package com.example.chuck_norris.domain.entities
+package com.example.chuck_norris.entities
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

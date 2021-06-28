@@ -47,11 +47,9 @@ android {
 }
 
 dependencies {
-
     api project(":libraries:customview")
-    api project(":libraries:network")
     api project(":libraries:database")
-
+    api project(":libraries:network")
     // Kotlin
     implementation deps.kotlin.stdlib
 

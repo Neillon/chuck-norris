@@ -1,8 +1,8 @@
 package com.example.chuck_norris.favorites.data.mappers
 
-import com.example.chuck_norris.database.entities.JokeEntity
-import com.example.chuck_norris.domain.entities.Joke
+import com.example.chuck_norris.entities.Joke
 import com.example.chuck_norris.ui.JokeUI
+import com.example.chuck_norris.database.entities.JokeEntity
 
 fun List<Joke>.toUI() = this.map {
     JokeUI(

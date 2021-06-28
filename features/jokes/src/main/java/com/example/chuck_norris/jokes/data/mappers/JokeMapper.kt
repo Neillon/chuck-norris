@@ -1,10 +1,10 @@
 package com.example.chuck_norris.jokes.data.mappers
 
-import com.example.chuck_norris.database.entities.JokeEntity
-import com.example.chuck_norris.domain.entities.Category
-import com.example.chuck_norris.domain.entities.Joke
-import com.example.chuck_norris.jokes.data.response.JokeResponse
+import com.example.chuck_norris.entities.Category
+import com.example.chuck_norris.entities.Joke
 import com.example.chuck_norris.ui.JokeUI
+import com.example.chuck_norris.database.entities.JokeEntity
+import com.example.chuck_norris.jokes.data.response.JokeResponse
 
 fun List<String>.toDomain() = this.map { Category(it) }
 
@@ -25,7 +25,8 @@ fun Joke.toUI() = JokeUI(
     value = this.value
 )
 
-fun List<Joke>.toUI(favorite: Boolean = true) = this.map { it.toUI().apply { isFavorite = favorite } }
+fun List<Joke>.toUI(favorite: Boolean = true) =
+    this.map { it.toUI().apply { isFavorite = favorite } }
 
 fun JokeUI.toDomain() = Joke(
     id = this.id,

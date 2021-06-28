@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.chuck_norris.extensions.exhaustive
 import com.example.chuck_norris.favorites.databinding.FragmentFavoritesBinding
 import com.example.chuck_norris.favorites.di.FavoritesModule
 import com.example.chuck_norris.favorites.ui.adapter.FavoriteJokeItemClick
@@ -87,7 +85,10 @@ class FavoritesFragment : Fragment(), FavoriteJokeItemClick {
 
     override fun onItemClick(joke: JokeUI) {
         val action =
-            FavoritesFragmentDirections.actionFavoritesFragmentToJokeDetailFragment(joke = joke)
+            FavoritesFragmentDirections.actionFavoritesFragmentToJokeDetailFragment(
+                joke = joke,
+                category = null
+            )
         navController.navigate(action)
     }
 }

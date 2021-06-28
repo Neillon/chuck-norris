@@ -17,16 +17,11 @@ object NetworkManager {
     suspend fun <S> doAsyncRequest(
         block: suspend () -> Response<S>
     ): S {
-
-//        if (!networkStatusManager.hasInternet())
-//            throw NoInternetConnectionException(context)
-
         return try {
             val response = block()
             response.takeIf { it.isSuccessful }?.body()
                 ?: when (response.code()) {
                     Constants.Network.Exceptions.BAD_REQUEST -> throw BadRequestException()
-                    // Constants.Network.Exceptions.INTERNAL_SERVER_ERROR -> throw InternalServerErrorException(context)
                     else -> throw GenericNetworkException(deserializeError(response)) // Why ChuckNorrisApi returns the error in status code 500???
                 }
 

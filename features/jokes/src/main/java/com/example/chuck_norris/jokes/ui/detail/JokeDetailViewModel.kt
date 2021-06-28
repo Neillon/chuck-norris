@@ -1,8 +1,10 @@
 package com.example.chuck_norris.jokes.ui.detail
 
 import androidx.lifecycle.viewModelScope
-import com.example.chuck_norris.abstractions.StateViewModel
+import com.example.chuck_norris.common.StateViewModel
 import com.example.chuck_norris.extensions.exhaustive
+import com.example.chuck_norris.ui.CategoryUI
+import com.example.chuck_norris.ui.JokeUI
 import com.example.chuck_norris.jokes.data.mappers.toDomain
 import com.example.chuck_norris.jokes.data.mappers.toUI
 import com.example.chuck_norris.jokes.domain.usecase.FavoriteJokeUseCase
@@ -11,19 +13,14 @@ import com.example.chuck_norris.jokes.domain.usecase.GetRandomJokeByCategoryUseC
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEffect
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewEvent
 import com.example.chuck_norris.jokes.ui.detail.data.JokeDetailViewState
-import com.example.chuck_norris.network.abstractions.Either
-import com.example.chuck_norris.ui.CategoryUI
-import com.example.chuck_norris.ui.JokeUI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class JokeDetailViewModel(
     private val getRandomJokeByCategoryUseCase: GetRandomJokeByCategoryUseCase,
-    private val favoriteJokeUseCase: FavoriteJokeUseCase,
-    private val findJokeByRemoteIdUseCase: FindJokeByRemoteIdUseCase
-) :
-    StateViewModel<JokeDetailViewState, JokeDetailViewEvent, JokeDetailViewEffect>() {
+    private val favoriteJokeUseCase: FavoriteJokeUseCase
+) : StateViewModel<JokeDetailViewState, JokeDetailViewEvent, JokeDetailViewEffect>() {
 
     init {
         _viewState.value = JokeDetailViewState()
@@ -74,14 +71,14 @@ class JokeDetailViewModel(
             )
 
             when (result) {
-                is Either.Value -> withContext(Dispatchers.Main) {
+                is com.example.chuck_norris.common.Either.Value -> withContext(Dispatchers.Main) {
                     _viewState.value = _viewState.value!!.copy(
                         isLoadingJoke = false,
                         joke = result.packet.toUI(),
                         error = null
                     )
                 }
-                is Either.Error -> withContext(Dispatchers.Main) {
+                is com.example.chuck_norris.common.Either.Error -> withContext(Dispatchers.Main) {
                     _viewState.value = _viewState.value!!.copy(
                         isLoadingJoke = false,
                         joke = null,
@@ -96,26 +93,26 @@ class JokeDetailViewModel(
      * Favorite a joke and send it to a local database
      */
     private fun favoriteJoke(joke: JokeUI) {
-        _viewState.value = _viewState.value!!.copy(favoritingJoke = true)
+        _viewState.value = _viewState.value!!.copy(favoriteJoke = true)
 
         viewModelScope.launch(Dispatchers.IO) {
             val result = favoriteJokeUseCase.execute(FavoriteJokeUseCase.Params(joke.toDomain()))
 
             when (result) {
-                is Either.Value -> {
+                is com.example.chuck_norris.common.Either.Value -> {
                     withContext(Dispatchers.Main) {
                         _viewState.value = _viewState.value!!.copy(
                             isLoadingJoke = false,
-                            favoritingJoke = false
+                            favoriteJoke = false
                         )
 
                         _viewEffect.value = JokeDetailViewEffect.UpdateFavoriteIcon
                     }
                 }
-                is Either.Error -> {
+                is com.example.chuck_norris.common.Either.Error -> {
                     _viewState.value = _viewState.value!!.copy(
                         isLoadingJoke = false,
-                        favoritingJoke = false,
+                        favoriteJoke = false,
                         error = result.packet.message
                     )
                 }
